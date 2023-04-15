@@ -1,8 +1,9 @@
 .sider {
     background-color: white !important;
-    max-width: 60vw !important;
+    min-width: 30vw !important;
 }
 
 .content {
     background-color: white !important;
+    min-width: 70vw !important;
 }

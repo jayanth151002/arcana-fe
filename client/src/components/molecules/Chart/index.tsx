@@ -1,32 +1,41 @@
-import { Line } from '@ant-design/charts';
+import { Area } from '@ant-design/charts';
 import "./styles.css"
+import { useState, useEffect } from "react";
+
+type chartItem = {
+    year: string,
+    value: number,
+    type: number
+}
 
 const Chart = () => {
-    const data = [
-        { year: '1991', value: 3 },
-        { year: '1992', value: 4 },
-        { year: '1993', value: 3.5 },
-        { year: '1994', value: 5 },
-        { year: '1995', value: 4.9 },
-        { year: '1996', value: 6 },
-        { year: '1997', value: 7 },
-        { year: '1998', value: 9 },
-        { year: '1999', value: 13 },
-    ];
+
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        fetch('https://gw.alipayobjects.com/os/bmw-prod/b21e7336-0b3e-486c-9070-612ede49284e.json')
+            .then((response) => response.json())
+            .then((json) => setData(json))
+            .catch((error) => {
+                console.log('fetch data failed', error);
+            });
+    }, []);
 
     const config = {
         data,
-        height: 400,
-        xField: 'year',
+        xField: 'date',
         yField: 'value',
-        point: {
-            size: 5,
-            shape: 'diamond',
+        seriesField: 'country',
+        slider: {
+            start: 0,
+            end: 1,
         },
     };
+
+
     return (
         <div className="chart-main">
-            < Line {...config} />
+            < Area {...config} />
         </div>
     )
 }
