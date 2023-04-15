@@ -1,16 +1,17 @@
-import { AutoComplete, Button, Input, Radio, Checkbox, Space } from 'antd';
+import { AutoComplete, Button, Input, Radio, Checkbox, Space, Select } from 'antd';
 import type { SelectProps } from 'antd/es/select';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../state/hooks';
-import { setIndices } from '../../../state/slices/activeEntities';
+import { setChartType, setIndices } from '../../../state/slices/activeEntities';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { setTimeSeriesData } from '../../../state/slices/analytics';
+import { timeSeriesDataOne, timeSeriesDataThree, timeSeriesDataTwo } from '../../../mockdata/timeSeries';
 
 
 const Search = () => {
     const [options, setOptions] = useState<SelectProps<object>['options']>([]);
     const dispatch = useAppDispatch();
     const activeIndices = useAppSelector(state => state.activeEntities.indices)
-    const getRandomInt = (max: number, min = 0) => Math.floor(Math.random() * (max - min + 1)) + min;
 
     const handleClick = (index: string) => {
         if (index !== "Benchmark")
@@ -18,39 +19,45 @@ const Search = () => {
     }
 
     const handleSelect = (e: CheckboxChangeEvent) => {
-        console.log(e.target)
+        const id = e.target.value;
+        if (id === "MSFT")
+            dispatch(setTimeSeriesData({ timeSeriesData: timeSeriesDataTwo }))
+        else if (id === "AAPL")
+            dispatch(setTimeSeriesData({ timeSeriesData: timeSeriesDataOne }))
+        else if (id === "GOOG")
+            dispatch(setTimeSeriesData({ timeSeriesData: timeSeriesDataThree }))
     }
 
-    const searchResult = (query: string) =>
-        new Array(getRandomInt(5))
-            .join('.')
-            .split('.')
-            .map((_, idx) => {
-                const category = `${query}${idx}`;
-                return {
-                    value: category,
-                    label: (
-                        <div
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <span>
-                                Found{' '} {category}
+    const handleChange = (value: string) => {
+        dispatch(setChartType({ chartType: value }))
+    }
+
+    const searchResult = (query: string) => ["AAPL", "MSFT", "GOOG"].map(name => {
+        return {
+            value: name,
+            label: (
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                    }}
+                >
+                    <span>
+                        Found{' '} {name}
+                    </span>
+                    <span>
+                        <Button>
+                            <span style={{ fontWeight: "700" }} onClick={() => handleClick(name)}>
+                                {activeIndices?.includes(name) ? "-" : "+"}
                             </span>
-                            <span>
-                                <Button>
-                                    <span style={{ fontWeight: "700" }} onClick={() => handleClick(category)}>
-                                        {activeIndices?.includes(category) ? "-" : "+"}
-                                    </span>
-                                </Button>
-                            </span>
-                        </div>
-                    ),
-                };
-            });
+                        </Button>
+                    </span>
+                </div>
+            ),
+        }
+    })
+
 
 
     const handleSearch = (value: string) => {
@@ -59,6 +66,16 @@ const Search = () => {
 
     return (
         <>
+            <Select
+                defaultValue="Pick a chart type"
+                style={{ width: 200 }}
+                onChange={handleChange}
+                options={[
+                    { value: 'close', label: 'Close' },
+                    { value: 'volume', label: 'Volume' },
+                    { value: 'volatility', label: 'Volatility' }
+                ]}
+            />
             <AutoComplete
                 dropdownMatchSelectWidth={252}
                 style={{ width: "90%", margin: 10 }}

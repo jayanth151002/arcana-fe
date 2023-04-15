@@ -1,31 +1,25 @@
 import { Area } from '@ant-design/charts';
 import "./styles.css"
 import { useState, useEffect } from "react";
-
-type chartItem = {
-    year: string,
-    value: number,
-    type: number
-}
+import { useAppDispatch, useAppSelector } from '../../../state/hooks';
+import { timeSeriesDataOne } from '../../../mockdata/timeSeries';
+import { setTimeSeriesData } from '../../../state/slices/analytics';
 
 const Chart = () => {
 
-    const [data, setData] = useState([]);
+    const dispatch = useAppDispatch()
+    const chartType = useAppSelector(state => state.activeEntities.chartType)
+    const chartData = useAppSelector(state => state.analytics.timeSeriesData)
 
     useEffect(() => {
-        fetch('https://gw.alipayobjects.com/os/bmw-prod/b21e7336-0b3e-486c-9070-612ede49284e.json')
-            .then((response) => response.json())
-            .then((json) => setData(json))
-            .catch((error) => {
-                console.log('fetch data failed', error);
-            });
+        dispatch(setTimeSeriesData({ timeSeriesData: timeSeriesDataOne }))
     }, []);
 
     const config = {
-        data,
+        data: chartData,
         xField: 'date',
-        yField: 'value',
-        seriesField: 'country',
+        yField: chartType,
+        // seriesField: statType,
         slider: {
             start: 0,
             end: 1,

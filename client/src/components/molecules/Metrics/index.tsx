@@ -6,13 +6,6 @@ const Metrics = () => {
         <Row gutter={16}>
             <Col span={12}>
                 <Card bordered={false}>
-                    {/* <Statistic
-                        title="Risk %"
-                        value={11.28}
-                        precision={2}
-                        // valueStyle={{ color: '#3f8600' }}
-                        suffix="%"
-                    /> */}
                     <span style={{ color: "#bbbbbb" }}>Risk %</span>
                     <Progress percent={45} status="active" strokeColor={{ to: '#fa1919', from: '#23fa2a' }} />
                 </Card>

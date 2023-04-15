@@ -2,13 +2,14 @@ import { createSlice } from '@reduxjs/toolkit'
 
 export interface activeEntitiesSliceType {
     isSliderOpen: boolean,
-    indices: string[]
+    indices: string[],
+    chartType: string
 }
 
 export const initialState: activeEntitiesSliceType = {
     isSliderOpen: false,
-    indices: ["Benchmark"]
-
+    indices: ["Benchmark"],
+    chartType: "volume"
 }
 
 const activeEntitiesSlice = createSlice({
@@ -23,9 +24,12 @@ const activeEntitiesSlice = createSlice({
                 state.indices = state.indices.filter(index => index !== action.payload.index)
             } else
                 state.indices.push(action.payload.index)
+        },
+        setChartType: (state, action) => {
+            state.chartType = action.payload.chartType
         }
     }
 })
 
-export const { setIsSliderOpen, setIndices } = activeEntitiesSlice.actions
+export const { setIsSliderOpen, setIndices, setChartType } = activeEntitiesSlice.actions
 export default activeEntitiesSlice.reducer
