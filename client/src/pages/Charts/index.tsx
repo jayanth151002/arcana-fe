@@ -1,12 +1,10 @@
+import ChartsGrid from "../../components/organisms/ChartsGrid"
 import BaseLayout from "../../components/templates/Baselayout"
 
-const Charts = () => {
+const ChartsPage = () => {
     return (
-        <BaseLayout
-            top={<div>Top</div>}
-            center={<div>Center</div>}
-        />
+        <BaseLayout center={<ChartsGrid />} />
     )
 }
 
-export default Charts
+export default ChartsPage
