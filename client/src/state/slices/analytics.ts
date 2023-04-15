@@ -8,7 +8,7 @@ export const initialState: analyticsSliceType = {
     name: ""
 }
 
-const userSlice = createSlice({
+const analyticsSlice = createSlice({
     name: 'analytics',
     initialState,
     reducers: {
@@ -18,5 +18,5 @@ const userSlice = createSlice({
     }
 })
 
-export const { setAnalyticsDetails } = userSlice.actions
-export default userSlice.reducer
+export const { setAnalyticsDetails } = analyticsSlice.actions
+export default analyticsSlice.reducer

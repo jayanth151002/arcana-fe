@@ -1,6 +1,7 @@
 import { combineReducers, configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import storage from 'redux-persist/lib/storage';
 import analyticsSlice from './slices/analytics';
+import activeEntitiesSlice from './slices/activeEntities';
 import { persistReducer, persistStore } from 'redux-persist'
 
 const persistConfig = {
@@ -9,7 +10,8 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-    analytics: analyticsSlice
+    analytics: analyticsSlice,
+    activeEntities: activeEntitiesSlice
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

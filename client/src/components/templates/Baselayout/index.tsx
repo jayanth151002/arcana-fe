@@ -1,5 +1,6 @@
 import { Layout } from 'antd';
 import "./styles.css"
+import Topbar from '../../atoms/Topbar';
 const { Header, Content, Footer } = Layout;
 
 
@@ -12,7 +13,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ center }) => {
         <Layout className={'ant-layout-has-sider'} >
             <Layout className="site-layout">
                 <Header className="site-layout-background header" style={{ padding: 0 }} >
-                    <h1>Copilot for Investors</h1>
+                    <Topbar />
                 </Header>
                 <Content className='content'>
                     {center}
