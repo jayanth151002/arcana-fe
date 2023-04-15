@@ -1,10 +1,15 @@
+import { Switch, Route, Redirect } from "wouter";
 import './App.css';
+import Charts from "./pages/Charts";
 
 function App() {
   return (
-    <div className="App">
-      Arcana
-    </div>
+    <>
+      <Switch>
+        <Route path="/" component={Charts} />
+        <Redirect to="/" />
+      </Switch>
+    </>
   );
 }
 
