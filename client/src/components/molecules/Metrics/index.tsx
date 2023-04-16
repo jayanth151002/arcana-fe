@@ -39,7 +39,7 @@ const Metrics = () => {
         },
     }) as { isLoading: boolean, data: CumulativeData }
     const dispatch: AppDispatch = useDispatch()
-    if (data) dispatch(setDataDumpNumbers(data.data))
+    if (data) dispatch(setDataDumpNumbers(data?.data))
     return (
         <><Row gutter={16}>
             <Col span={12}>
