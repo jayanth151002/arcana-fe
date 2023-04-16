@@ -7,6 +7,7 @@ import {
   QueryClientProvider,
   useQuery,
 } from '@tanstack/react-query'
+import GlobalModal from "./components/templates/GlobalModal";
 
 const queryClient = new QueryClient()
 
@@ -14,6 +15,7 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
+        <GlobalModal />
         <Switch>
           <Route path="/" component={ChartsPage} />
           <Route path="/news" component={NewsPage} />

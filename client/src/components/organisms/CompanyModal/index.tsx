@@ -1,4 +1,4 @@
-import { Modal } from "antd"
+import { Modal, Spin } from "antd"
 import { useCallback } from "react";
 import { setIsModalOpen } from "../../../state/slices/activeEntities";
 import { AppDispatch, RootState } from "../../../state/store";
@@ -32,34 +32,40 @@ const CompanyModal = () => {
         dispatch(setIsModalOpen(false))
     };
     const activeStockSymbol = useSelector((state: RootState) => state.activeEntities.activeCompanySymbol)
-    const { isLoading, data } = useQuery({
+    const { data } = useQuery({
         queryKey: ["stockData"],
         queryFn: async () => await axios.get(
-            `api.arcana.coursepanel.in/stocks/${activeStockSymbol}`
+            `https://api.arcana.coursepanel.in/stocks/${activeStockSymbol}`
         ),
     }) as { isLoading: boolean, data: StockData }
-
     return (
-        data ? <Modal
-            title={`${data.name} (${data.symbol})`}
+        <Modal
+            title={`Company Details`}
             visible={open}
             onOk={handleOk}
             onCancel={handleCancel}
         >
-            <img src={data?.image} alt={data?.name} />
-            <h2>CEO : {data?.ceo} </h2>
-            <h2>Sector : {data?.sector} </h2>
-            <h2>Industry : {data?.industry} </h2>
-            <hr />
-            <h3>Range : {data?.range} </h3>
-            <h3>Beta : {data?.beta} </h3>
-            <h3>Volume Average : {data?.volAvg} </h3>
-            <h3>Last dividend paid: {data?.lastDiv}</h3>
-            <hr />
-            <h3>Website : {data?.website} </h3>
-            <p>{data.description}</p>
+            {
+                data ?
+                    <>
+                        <h1><a href={data.website}>{data.name} ({data.symbol})</a></h1>
+                        <img src={data.image} alt={data.name} />
+                        <h2>CEO : {data.ceo} </h2>
+                        <h2>Sector : {data.sector} </h2>
+                        <h2>Industry : {data.industry} </h2>
+                        <hr />
+                        <h3>Range : {data.range} </h3>
+                        <h3>Beta : {data.beta} </h3>
+                        <h3>Volume Average : {data.volAvg} </h3>
+                        <h3>Last dividend paid: {data.lastDiv}</h3>
+                        <hr />
+                        <h3>Website : {data.website} </h3>
+                        <p>{data.description}</p>
+                    </> : <Spin />
 
-        </Modal> : <></>
+            }
+
+        </Modal>
     )
 }
 
