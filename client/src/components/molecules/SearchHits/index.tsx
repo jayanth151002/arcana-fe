@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../../state/hooks';
 import { RootState } from '../../../state/store';
-import { setIndices } from '../../../state/slices/activeEntities';
+import { setActiveCompanySymbol, setIndices, setIsModalOpen } from '../../../state/slices/activeEntities';
 
 interface StockRowProps {
     key: string;
@@ -44,6 +44,14 @@ const SearchHits = () => {
                     <Button>
                         <span style={{ fontWeight: "700" }} onClick={() => handleClick(hit.symbol)}>
                             {activeIndices?.includes(hit.name) ? "✅" : "+"}
+                        </span>
+                    </Button>
+                    <Button>
+                        <span style={{ fontWeight: "700" }} onClick={() => {
+                            dispatch(setActiveCompanySymbol(hit.symbol))
+                            dispatch(setIsModalOpen(true))
+                        }}>
+                            {activeIndices?.includes(hit.name) ? "✅" : "?"}
                         </span>
                     </Button>
                 </span>
