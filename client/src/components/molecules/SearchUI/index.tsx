@@ -9,7 +9,7 @@ import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { TimeSeries } from '../../../models/timeSeries';
 import { useAppSelector, useAppDispatch } from '../../../state/hooks';
 import { setTimeSeriesData } from '../../../state/slices/analytics';
-import { setChartType } from '../../../state/slices/activeEntities';
+import { setActiveCompanySymbol, setChartType } from '../../../state/slices/activeEntities';
 
 const searchClient = algoliasearch(
     "AB57CPNYCS",
@@ -85,7 +85,10 @@ const SearchUI = () => {
                         {activeIndices?.map((index) => {
                             return (index === "AAPL" ? <Checkbox value={index} onChange={handleSelect} checked={true}>{index}</Checkbox>
                                 :
-                                <Checkbox value={index} onChange={handleSelect}>{index}</Checkbox>)
+                                <Checkbox value={index} onChange={handleSelect}>
+                                    <span onClick={() => dispatch(setActiveCompanySymbol(index))} style={{ textDecoration: "underline" }} >{index}</span>
+
+                                </Checkbox>)
                         })}
                     </Space>
                 </Radio.Group>
