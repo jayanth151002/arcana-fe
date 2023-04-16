@@ -31,77 +31,74 @@ const Metrics = () => {
         queryKey: ["stockData"],
         queryFn: async () => {
             if (!activeStockSymbol) { activeStockSymbol = 'AAPL' }
-            await axios.get(
+            return await axios.get(
                 `https://api.arcana.coursepanel.in/stocks/complete/${activeStockSymbol}`
             )
         },
     }) as { isLoading: boolean, data: CumulativeData }
     return (
-        <>
-            {data?.data
-                ? <Row gutter={16}>
-                    <Col span={12}>
-                        <Card bordered={false}>
-                            <span style={{ color: "#bbbbbb" }}>Predicted Risk</span>
-                            <Progress percent={Math.round(+data?.data?.volatility_predicted * 10000) / 100} status="active" strokeColor={{ to: '#fa1919', from: '#23fa2a' }} />
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card bordered={false}>
-                            <Statistic
-                                title="Predicted Return"
-                                value={data?.data?.correlation_q4}
-                                precision={2}
-                            />
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card bordered={false}>
-                            <Statistic
-                                title="Latest Correlation"
-                                value={data?.data?.correlation_q3}
-                                precision={2}
-                            />
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card bordered={false}>
-                            <Statistic
-                                title="Volatility Q1"
-                                value={data?.data?.volatility_q1}
-                                precision={2}
-                            />
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card bordered={false}>
-                            <Statistic
-                                title="Volatility Q2"
-                                value={data?.data?.volatility_q2}
-                                precision={2}
-                            />
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card bordered={false}>
-                            <Statistic
-                                title="Volatility Q3"
-                                value={data?.data?.volatility_q3}
-                                precision={2}
-                            />
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card bordered={false}>
-                            <Statistic
-                                title="Volatility Q4"
-                                value={data?.data?.volatility_q4}
-                                precision={2}
-                            />
-                        </Card>
-                    </Col>
-                </Row> : <p>Click on a stock from the list on the right to see the statistics and the predictions</p>
-            }
+        <><Row gutter={16}>
+            <Col span={12}>
+                <Card bordered={false}>
+                    <span style={{ color: "#bbbbbb" }}>Predicted Risk</span>
+                    <Progress percent={Math.round(+data?.data?.volatility_predicted * 10000) / 100} status="active" strokeColor={{ to: '#fa1919', from: '#23fa2a' }} />
+                </Card>
+            </Col>
+            <Col span={6}>
+                <Card bordered={false}>
+                    <Statistic
+                        title="Predicted Return"
+                        value={data?.data?.correlation_q4}
+                        precision={2}
+                    />
+                </Card>
+            </Col>
+            <Col span={6}>
+                <Card bordered={false}>
+                    <Statistic
+                        title="Latest Correlation"
+                        value={data?.data?.correlation_q3}
+                        precision={2}
+                    />
+                </Card>
+            </Col>
+            <Col span={6}>
+                <Card bordered={false}>
+                    <Statistic
+                        title="Volatility Q1"
+                        value={data?.data?.volatility_q1}
+                        precision={2}
+                    />
+                </Card>
+            </Col>
+            <Col span={6}>
+                <Card bordered={false}>
+                    <Statistic
+                        title="Volatility Q2"
+                        value={data?.data?.volatility_q2}
+                        precision={2}
+                    />
+                </Card>
+            </Col>
+            <Col span={6}>
+                <Card bordered={false}>
+                    <Statistic
+                        title="Volatility Q3"
+                        value={data?.data?.volatility_q3}
+                        precision={2}
+                    />
+                </Card>
+            </Col>
+            <Col span={6}>
+                <Card bordered={false}>
+                    <Statistic
+                        title="Volatility Q4"
+                        value={data?.data?.volatility_q4}
+                        precision={2}
+                    />
+                </Card>
+            </Col>
+        </Row>
         </>
     )
 }

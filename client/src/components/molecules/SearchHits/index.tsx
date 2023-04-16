@@ -27,7 +27,6 @@ const SearchHits = () => {
             dispatch(setActiveSearchString({ activeSearchString: "" }))
         }
     }
-    console.log(activeSearchString);
     const { hits } = useHits() as unknown as { hits: StockRowProps[] };
 
     return (<>
@@ -44,7 +43,7 @@ const SearchHits = () => {
                 </span>
                 <span>
                     <Button>
-                        <span style={{ fontWeight: "700"}} onClick={() => handleClick(hit.symbol)}>
+                        <span style={{ fontWeight: "700" }} onClick={() => handleClick(hit.symbol)}>
                             {activeIndices?.includes(hit.name) ? "✅" : "+"}
                         </span>
                     </Button>

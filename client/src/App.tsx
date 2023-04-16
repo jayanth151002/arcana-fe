@@ -15,8 +15,8 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <GlobalModal />
         <Switch>
+          <GlobalModal />
           <Route path="/" component={ChartsPage} />
           <Route path="/news" component={NewsPage} />
           <Redirect to="/" />

@@ -34,9 +34,11 @@ const CompanyModal = () => {
     const activeStockSymbol = useSelector((state: RootState) => state.activeEntities.activeCompanySymbol)
     const { data } = useQuery({
         queryKey: ["stockData"],
-        queryFn: async () => await axios.get(
-            `https://api.arcana.coursepanel.in/stocks/${activeStockSymbol}`
-        ),
+        queryFn: async () => {
+            return await axios.get(
+                `https://api.arcana.coursepanel.in/stocks/${activeStockSymbol}`
+            )
+        },
     }) as { isLoading: boolean, data: StockData }
     if (data) dispatch(setDataDumpComp(data))
     console.log(data);

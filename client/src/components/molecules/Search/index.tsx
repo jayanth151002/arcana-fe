@@ -43,7 +43,7 @@ const Search = () => {
                 })
                     .then(res => res.json())
                     .then(res => {
-                        console.log("data fetched", res[0])
+                        // console.log("data fetched", res[0])
                         const parserData: TimeSeries[] = res.map((item: any) => {
                             return {
                                 stock_id: item.symbol,
