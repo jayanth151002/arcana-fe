@@ -79,16 +79,16 @@ const Search = () => {
     };
 
     return (
-        <>
+        <>Pick a chart type
             <Select
                 size="large"
-                defaultValue="Pick a chart type"
+                defaultValue="volatility"
                 style={{ width: 200, margin: 10 }}
                 onChange={handleChange}
                 options={[
+                    { value: 'volatility', label: 'Volatility' },
                     { value: 'close', label: 'Close' },
-                    { value: 'volume', label: 'Volume' },
-                    { value: 'volatility', label: 'Volatility' }
+                    { value: 'volume', label: 'Volume' }
                 ]}
             />
             <AutoComplete

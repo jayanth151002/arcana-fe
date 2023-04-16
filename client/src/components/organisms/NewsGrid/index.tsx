@@ -14,15 +14,15 @@ const NewsGrid = () => {
     }
     return (
         <Row className="news-content">
-            <Col span={16}>
+            <Col span={24}>
                 <NewsContent />
             </Col>
-            <Col span={8}>
+            {/* <Col span={8}>
                 <FloatButton icon={<WechatOutlined />} type="primary" style={{ right: 40, marginBottom: "4rem" }} onClick={handleSlider} badge={{ count: "!" }} />
                 <Drawer title="InvestorGPT" placement="right" onClose={handleSlider} open={isSliderOpen} size="large">
                     <p>InvestorGPT</p>
                 </Drawer>
-            </Col>
+            </Col> */}
         </Row>
     )
 }
