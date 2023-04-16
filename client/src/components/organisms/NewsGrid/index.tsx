@@ -14,6 +14,7 @@ const NewsGrid = () => {
     }
     return (
         <Row className="news-content">
+
             <Col span={24}>
                 <NewsContent />
             </Col>

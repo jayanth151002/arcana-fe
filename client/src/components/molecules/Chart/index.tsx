@@ -12,7 +12,7 @@ const Chart = () => {
     const chartData = useAppSelector(state => state.analytics.timeSeriesData)
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_SERVER_URL}stock/timeseries/by-symbol/AAPL`, {
+        fetch(`${process.env.REACT_APP_SERVER_URL}/stock/timeseries/by-symbol/AAPL`, {
             method: "GET",
         })
             .then(res => res.json())

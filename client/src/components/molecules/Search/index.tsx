@@ -124,7 +124,7 @@ const Search = () => {
                 <Radio.Group onChange={() => { ; }} value={1}>
                     <Space direction="vertical">
                         {activeIndices?.map((index) => {
-                            return (index === "Benchmark" ? <Checkbox value={index} onChange={handleSelect} checked={true}>{index}</Checkbox>
+                            return (index === "AAPL" ? <Checkbox value={index} onChange={handleSelect} checked={true}>{index}</Checkbox>
                                 :
                                 <Checkbox value={index} onChange={handleSelect}>{index}</Checkbox>)
                         })}

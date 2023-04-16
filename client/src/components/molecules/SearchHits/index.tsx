@@ -19,17 +19,17 @@ interface StockRowProps {
 const SearchHits = () => {
     const activeIndices = useAppSelector((state: RootState) => state.activeEntities.indices)
     const dispatch = useAppDispatch();
-
+    const activeSearchString = useAppSelector((state: RootState) => state.activeEntities.activeSearchString)
     const handleClick = (index: string) => {
-        if (index !== "Benchmark") {
+        if (index !== "AAPL") {
             dispatch(setIndices({ index: index }))
         }
     }
+    console.log(activeSearchString);
     const { hits } = useHits() as unknown as { hits: StockRowProps[] };
-    // JAYANTH LOOK AT THESE HITS
-    console.log(hits)
+
     return (<>
-        {hits.map((hit: any) => (
+        {activeSearchString?.length > 0 && hits.slice(0, 5).map((hit: any) => (
             <div
                 style={{
                     display: 'flex',

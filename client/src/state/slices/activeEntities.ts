@@ -3,15 +3,15 @@ import { createSlice } from '@reduxjs/toolkit'
 export interface activeEntitiesSliceType {
     isSliderOpen: boolean,
     indices: string[],
-    chartType: string,
-    activeCompany: string
+    chartType: string
+    activeSearchString: string,
 }
 
 export const initialState: activeEntitiesSliceType = {
     isSliderOpen: false,
-    indices: ["Benchmark"],
+    indices: ["AAPL"],
     chartType: "volume",
-    activeCompany: ""
+    activeSearchString: ""
 }
 
 const activeEntitiesSlice = createSlice({
@@ -29,11 +29,11 @@ const activeEntitiesSlice = createSlice({
         setChartType: (state, action) => {
             state.chartType = action.payload.chartType
         },
-        setActiveCompany: (state, action) => {
-            state.activeCompany = action.payload.activeCompany
+        setActiveSearchString: (state, action) => {
+            state.activeSearchString = action.payload
         }
     }
 })
 
-export const { setIsSliderOpen, setIndices, setChartType, setActiveCompany } = activeEntitiesSlice.actions
+export const { setIsSliderOpen, setIndices, setChartType, setActiveSearchString } = activeEntitiesSlice.actions
 export default activeEntitiesSlice.reducer

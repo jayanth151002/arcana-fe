@@ -13,7 +13,6 @@ const Topbar = () => {
                 <Col flex="auto">
                     <div>
                         <h1>CoffeeCan AI ☕️ </h1>
-                        <h2>Price is what you pay; value is what you get.</h2>
                     </div>
                 </Col>
                 {/* <Col flex="auto">
