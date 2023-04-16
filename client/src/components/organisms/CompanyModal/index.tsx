@@ -32,7 +32,7 @@ const CompanyModal = () => {
         dispatch(setIsModalOpen(false))
     };
     const activeStockSymbol = useSelector((state: RootState) => state.activeEntities.activeCompanySymbol)
-    const { data } = useQuery({
+    const { data: companyData } = useQuery({
         queryKey: ["stockData"],
         queryFn: async () => {
             return await axios.get(
@@ -40,8 +40,8 @@ const CompanyModal = () => {
             )
         },
     }) as { isLoading: boolean, data: StockData }
-    if (data) dispatch(setDataDumpComp(data))
-    console.log(data);
+    if (companyData) dispatch(setDataDumpComp(companyData))
+    const data = (companyData as any).data
     return (
         <Modal
             title={`Company Details`}
