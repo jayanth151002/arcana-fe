@@ -11,7 +11,8 @@ const Topbar = () => {
         <>
             <Row>
                 <Col flex="auto">
-                    <h1>Copilot for Investors</h1>
+                    <h1>CoffeeCan AI ☕️ </h1>
+                    <p>Price is what you pay; value is what you get.</p>
                 </Col>
                 <Col flex="100px">
                     <Button onClick={() => handleClick("/")}>

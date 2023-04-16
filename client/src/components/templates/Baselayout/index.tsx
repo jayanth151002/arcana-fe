@@ -19,7 +19,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ center }) => {
                     {center}
                 </Content>
                 <Footer className='footer'>
-                    Footer
+                    Team Big Data
                 </Footer>
             </Layout>
         </Layout>
