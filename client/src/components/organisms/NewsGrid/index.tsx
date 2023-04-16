@@ -4,6 +4,7 @@ import NewsContent from '../../molecules/NewsContent';
 import { WechatOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from "../../../state/hooks";
 import { setIsSliderOpen } from "../../../state/slices/activeEntities";
+import { useQuery } from '@tanstack/react-query'
 
 const NewsGrid = () => {
 
@@ -12,6 +13,14 @@ const NewsGrid = () => {
     const handleSlider = () => {
         dispatch(setIsSliderOpen({ isSliderOpen: !isSliderOpen }))
     }
+    const activeStockSymbol = 'AAPL'
+    // const { isLoading: isCourseRoadsLoading, data:roadsData } = useQuery({
+    //     queryKey: ["newsForStock", , ],
+    //     queryFn: async ({ queryKey }) => await apiService.getRoadsForUser(
+    //         queryKey[1], queryKey[2]
+    //     ),
+    // })
+
     return (
         <Row className="news-content">
 
