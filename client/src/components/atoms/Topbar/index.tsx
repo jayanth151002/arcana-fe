@@ -11,14 +11,19 @@ const Topbar = () => {
         <>
             <Row>
                 <Col flex="auto">
-                    <h1>CoffeeCan AI ☕️ </h1>
-                    <p>Price is what you pay; value is what you get.</p>
+                    <div>
+                        <h1>CoffeeCan AI ☕️ </h1>
+                        <h2>Price is what you pay; value is what you get.</h2>
+                    </div>
                 </Col>
+                {/* <Col flex="auto">
+                </Col> */}
                 <Col flex="100px">
                     <Button onClick={() => handleClick("/")}>
                         Charts
                     </Button>
                 </Col>
+
                 <Col flex="100px">
                     <Button onClick={() => handleClick("/news")}>
                         News
