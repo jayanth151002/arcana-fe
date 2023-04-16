@@ -18,7 +18,11 @@ export const initialState: activeEntitiesSliceType = {
     activeSearchString: "",
     activeCompanySymbol: "",
     isModalOpen: false,
-    dataDump: {}
+    dataDump: {
+        compData: {},
+        articles: [],
+        numbers: {}
+    }
 }
 
 const activeEntitiesSlice = createSlice({
@@ -47,10 +51,16 @@ const activeEntitiesSlice = createSlice({
         },
         setDataDumpComp: (state, action) => {
             state.dataDump.compData = action.payload
+        },
+        setDataDumpArticles: (state, action) => {
+            state.dataDump.articles = action.payload
+        },
+        setDataDumpNumbers: (state, action) => {
+            state.dataDump.numbers = action.payload
         }
 
     }
 })
 
-export const { setIsSliderOpen, setIndices, setChartType, setActiveCompanySymbol, setDataDumpComp, setIsModalOpen, setActiveSearchString } = activeEntitiesSlice.actions
+export const { setIsSliderOpen, setIndices, setDataDumpArticles, setChartType, setActiveCompanySymbol, setDataDumpNumbers, setDataDumpComp, setIsModalOpen, setActiveSearchString } = activeEntitiesSlice.actions
 export default activeEntitiesSlice.reducer

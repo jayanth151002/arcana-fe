@@ -1,6 +1,8 @@
 // PdfDocument.js
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../state/store';
 
 const styles = StyleSheet.create({
     page: {

@@ -1,10 +1,12 @@
 import { Card, Col, Progress, Row, Statistic } from 'antd';
 import "./styles.css"
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../state/store';
+import { AppDispatch, RootState } from '../../../state/store';
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setDataDumpComp, setDataDumpNumbers } from '../../../state/slices/activeEntities';
 
 interface CumulativeData {
     data: {
@@ -36,6 +38,8 @@ const Metrics = () => {
             )
         },
     }) as { isLoading: boolean, data: CumulativeData }
+    const dispatch: AppDispatch = useDispatch()
+    if (data) dispatch(setDataDumpNumbers(data.data))
     return (
         <><Row gutter={16}>
             <Col span={12}>

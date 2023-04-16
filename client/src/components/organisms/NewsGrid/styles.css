@@ -2,3 +2,7 @@
     background-color: white !important;
     min-height: 80vh;
 }
+
+.news-gallery {
+    padding: 0 3rem;
+}
