@@ -38,7 +38,7 @@ const Search = () => {
                 // dispatch(setIndices({index:index}))
             }
             else {
-                fetch(`${process.env.REACT_APP_SERVER_URL}stock/timeseries/by-symbol/${id}`, {
+                fetch(`https://api.arcana.coursepanel.in/stock/timeseries/by-symbol/${id}`, {
                     method: "GET",
                 })
                     .then(res => res.json())
