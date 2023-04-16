@@ -18,10 +18,10 @@ const Chat = () => {
             temperature: 0.3,
             max_tokens: 300,
         })
-            .then((res) => {
+            .then((res: any) => {
                 console.log(res?.data?.choices[0]?.text as string)
             })
-            .catch((err) => {
+            .catch((err: any) => {
                 console.log(err)
             })
     }

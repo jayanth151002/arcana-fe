@@ -1,19 +1,29 @@
 import { Card, Col, Progress, Row, Statistic } from 'antd';
 import "./styles.css"
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Metrics = () => {
 
-    useEffect (()=>{
-        
-    },[])
+    const [metrics, setMetrics] = useState()
+
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_SERVER_URL}/stock/timeseries/by-symbol/${id}`, {
+            method: "GET",
+        })
+            .then(res => res.json())
+            .then(res => {
+                setMetrics(res)
+            })
+            .catch(err => console.log(err))
+
+    }, [])
 
     return (
         <Row gutter={16}>
             <Col span={12}>
                 <Card bordered={false}>
                     <span style={{ color: "#bbbbbb" }}>Predicted Correlation</span>
-                    <Progress percent={45} status="active" strokeColor={{ to: '#fa1919', from: '#23fa2a' }} />
+                    <Progress percent={} status="active" strokeColor={{ to: '#fa1919', from: '#23fa2a' }} />
                 </Card>
             </Col>
             <Col span={6}>
