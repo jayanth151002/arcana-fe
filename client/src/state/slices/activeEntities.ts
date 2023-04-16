@@ -6,7 +6,8 @@ export interface activeEntitiesSliceType {
     chartType: string
     activeSearchString: string,
     activeCompanySymbol: string,
-    isModalOpen: boolean
+    isModalOpen: boolean;
+    dataDump: any
 
 }
 
@@ -16,7 +17,8 @@ export const initialState: activeEntitiesSliceType = {
     chartType: "volume",
     activeSearchString: "",
     activeCompanySymbol: "",
-    isModalOpen: false
+    isModalOpen: false,
+    dataDump: {}
 }
 
 const activeEntitiesSlice = createSlice({
@@ -42,10 +44,13 @@ const activeEntitiesSlice = createSlice({
         },
         setIsModalOpen: (state, action) => {
             state.isModalOpen = action.payload
+        },
+        setDataDumpComp: (state, action) => {
+            state.dataDump.compData = action.payload
         }
 
     }
 })
 
-export const { setIsSliderOpen, setIndices, setChartType, setActiveCompanySymbol, setIsModalOpen, setActiveSearchString } = activeEntitiesSlice.actions
+export const { setIsSliderOpen, setIndices, setChartType, setActiveCompanySymbol, setDataDumpComp, setIsModalOpen, setActiveSearchString } = activeEntitiesSlice.actions
 export default activeEntitiesSlice.reducer

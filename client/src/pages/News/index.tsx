@@ -17,6 +17,7 @@ const NewsPage = () => {
                     loading ? 'Loading document...' : 'Download PDF'
                 }
             </PDFDownloadLink>
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         </>
     )
 }

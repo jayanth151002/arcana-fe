@@ -12,7 +12,6 @@ const Chart = () => {
     const chartData = useAppSelector(state => state.analytics.timeSeriesData)
 
     useEffect(() => {
-        console.log('I WAS CALLED!!')
         fetch(`https://api.arcana.coursepanel.in/stock/timeseries/by-symbol/AAPL`, {
             method: "GET",
         })
@@ -27,7 +26,6 @@ const Chart = () => {
                         volatility: item.volatility,
                     }
                 })
-                console.log(parserData);
                 dispatch(setBenchmarkTimeSeriesData({ benchmarkTimeSeriesData: parserData }))
                 dispatch(setTimeSeriesData({ timeSeriesData: parserData }))
             })

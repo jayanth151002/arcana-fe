@@ -1,6 +1,6 @@
 import { Modal, Spin } from "antd"
 import { useCallback } from "react";
-import { setIsModalOpen } from "../../../state/slices/activeEntities";
+import { setDataDumpComp, setIsModalOpen } from "../../../state/slices/activeEntities";
 import { AppDispatch, RootState } from "../../../state/store";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -38,6 +38,7 @@ const CompanyModal = () => {
             `https://api.arcana.coursepanel.in/stocks/${activeStockSymbol}`
         ),
     }) as { isLoading: boolean, data: StockData }
+    if (data) dispatch(setDataDumpComp(data))
     return (
         <Modal
             title={`Company Details`}
