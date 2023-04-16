@@ -4,11 +4,12 @@ import { InstantSearch, Hits } from 'react-instantsearch-hooks-web';
 import SearchHits from '../SearchHits';
 import './styles.css'
 import { SearchBox } from '../../atoms/SearchBox';
-import { Checkbox, Radio, Space } from 'antd';
+import { Checkbox, Radio, Select, Space } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { TimeSeries } from '../../../models/timeSeries';
 import { useAppSelector, useAppDispatch } from '../../../state/hooks';
 import { setTimeSeriesData } from '../../../state/slices/analytics';
+import { setChartType } from '../../../state/slices/activeEntities';
 
 const searchClient = algoliasearch(
     "AB57CPNYCS",
@@ -23,6 +24,9 @@ const SearchUI = () => {
     const timeSeriesData = useAppSelector(state => state.analytics.timeSeriesData)
     const benchmarkTimeSeriesData = useAppSelector(state => state.analytics.benchmarkTimeSeriesData)
 
+    const handleChange = (value: string) => {
+        dispatch(setChartType({ chartType: value }))
+    }
 
     const handleSelect = (e: CheckboxChangeEvent) => {
         const id = e.target.value;
@@ -34,7 +38,7 @@ const SearchUI = () => {
                 // dispatch(setIndices({index:index}))
             }
             else {
-                fetch(`${process.env.REACT_APP_SERVER_URL}stock/timeseries/by-symbol/${id}`, {
+                fetch(`${process.env.REACT_APP_SERVER_URL}/stock/timeseries/by-symbol/${id}`, {
                     method: "GET",
                 })
                     .then(res => res.json())
@@ -57,7 +61,18 @@ const SearchUI = () => {
     }
 
     return (
-        <>
+        <> Pick a chart type
+            <Select
+                size="large"
+                defaultValue="volatility"
+                style={{ width: 200, margin: 10 }}
+                onChange={handleChange}
+                options={[
+                    { value: 'volatility', label: 'Volatility' },
+                    { value: 'close', label: 'Close' },
+                    { value: 'volume', label: 'Volume' },
+                ]}
+            />
             <InstantSearch searchClient={searchClient} indexName={"stock-metadata"}>
                 <div className="search-container" >
                     <SearchBox />
