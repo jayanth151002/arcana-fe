@@ -5,24 +5,32 @@ import { useAppDispatch, useAppSelector } from '../../../state/hooks';
 import { setChartType, setIndices } from '../../../state/slices/activeEntities';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { setTimeSeriesData } from '../../../state/slices/analytics';
-import { timeSeriesDataOne, timeSeriesDataThree, timeSeriesDataTwo } from '../../../mockdata/timeSeries';
+import { TimeSeries } from '../../../models/timeSeries';
+import algoliasearch from 'algoliasearch/lite';
+import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-hooks-web';
 
+const searchClient = algoliasearch(
+    "AB57CPNYCS",
+    "b9479b4210d1a59ca9be2ad35ad194b3"
+);
 
 const Search = () => {
     const [options, setOptions] = useState<SelectProps<object>['options']>([]);
     const dispatch = useAppDispatch();
     const activeIndices = useAppSelector(state => state.activeEntities.indices)
     const timeSeriesData = useAppSelector(state => state.analytics.timeSeriesData)
+    const benchmarkTimeSeriesData = useAppSelector(state => state.analytics.benchmarkTimeSeriesData)
 
     const handleClick = (index: string) => {
-        if (index !== "Benchmark") {
+        console.log(index)
+        if (index !== "AAPL") {
             dispatch(setIndices({ index: index }))
         }
     }
 
     const handleSelect = (e: CheckboxChangeEvent) => {
         const id = e.target.value;
-        if (id !== "Benchmark") {
+        if (id !== "AAPL") {
             if (timeSeriesData?.some(t => t.stock_id === id)) {
                 console.log(id, "exists")
                 console.log(timeSeriesData?.filter(i => i.stock_id !== id))
@@ -30,13 +38,24 @@ const Search = () => {
                 // dispatch(setIndices({index:index}))
             }
             else {
-                if (id === "MSFT")
-                    dispatch(setTimeSeriesData({ timeSeriesData: timeSeriesData.concat(timeSeriesDataTwo) }))
-                else if (id === "AAPL")
-                    dispatch(setTimeSeriesData({ timeSeriesData: timeSeriesData.concat(timeSeriesDataOne) }))
-                else if (id === "GOOG")
-                    dispatch(setTimeSeriesData({ timeSeriesData: timeSeriesData.concat(timeSeriesDataThree) }))
-                // dispatch(setIndices({index:index}))
+                fetch(`${process.env.REACT_APP_SERVER_URL}stock/timeseries/by-symbol/${id}`, {
+                    method: "GET",
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log("data fetched", res[0])
+                        const parserData: TimeSeries[] = res.map((item: any) => {
+                            return {
+                                stock_id: item.symbol,
+                                date: item.ds,
+                                close: item.close,
+                                volume: item.volume,
+                                volatility: item.volatility,
+                            }
+                        })
+                        dispatch(setTimeSeriesData({ timeSeriesData: benchmarkTimeSeriesData.concat(parserData) }))
+                    })
+                    .catch(err => console.log(err))
             }
         }
     }
@@ -45,7 +64,7 @@ const Search = () => {
         dispatch(setChartType({ chartType: value }))
     }
 
-    const searchResult = (query: string) => ["AAPL", "MSFT", "GOOG"].map(name => {
+    const searchResult = (query: string) => ["A", "MSFT", "MSTR", "MSI"].map(name => {
         return {
             value: name,
             label: (
@@ -79,30 +98,33 @@ const Search = () => {
 
     return (
         <>Pick a chart type
-            <Select
-                size="large"
-                defaultValue="volatility"
-                style={{ width: 200, margin: 10 }}
-                onChange={handleChange}
-                options={[
-                    { value: 'volatility', label: 'Volatility' },
-                    { value: 'close', label: 'Close' },
-                    { value: 'volume', label: 'Volume' },
-                ]}
-            />
-            <AutoComplete
-                dropdownMatchSelectWidth={252}
-                style={{ width: "90%", margin: 10 }}
-                options={options}
-                onSearch={handleSearch}
-            >
-                <Input.Search size="large" placeholder="Search 🔎" enterButton />
-            </AutoComplete>
+            <InstantSearch searchClient={searchClient} indexName={"stock-metadata"}>
+                <Select
+
+                    size="large"
+                    defaultValue="volatility"
+                    style={{ width: 200, margin: 10 }}
+                    onChange={handleChange}
+                    options={[
+                        { value: 'volatility', label: 'Volatility' },
+                        { value: 'close', label: 'Close' },
+                        { value: 'volume', label: 'Volume' },
+                    ]}
+                />
+                <AutoComplete
+                    dropdownMatchSelectWidth={252}
+                    style={{ width: "90%", margin: 10 }}
+                    options={options}
+                    onSearch={handleSearch}
+                >
+                    <Input.Search size="large" placeholder="Search 🔎" enterButton />
+                </AutoComplete>
+            </InstantSearch>
             <div style={{ overflowY: "scroll" }}>
                 <Radio.Group onChange={() => { ; }} value={1}>
                     <Space direction="vertical">
                         {activeIndices?.map((index) => {
-                            return (index === "Benchmark" ? <Checkbox value={index} onChange={handleSelect} checked={true}>{index}</Checkbox>
+                            return (index === "AAPL" ? <Checkbox value={index} onChange={handleSelect} checked={true}>{index}</Checkbox>
                                 :
                                 <Checkbox value={index} onChange={handleSelect}>{index}</Checkbox>)
                         })}

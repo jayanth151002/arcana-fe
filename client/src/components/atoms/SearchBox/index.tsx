@@ -6,6 +6,7 @@ import './styles.css'
 import { setActiveSearchString } from '../../../state/slices/activeEntities';
 import { AppDispatch } from '../../../state/store';
 import { useDispatch } from 'react-redux';
+import { Input } from 'antd';
 
 export type SearchBoxProps = UseSearchBoxProps;
 
@@ -63,9 +64,9 @@ export function SearchBox(props: SearchBoxProps) {
                     onSubmit={handleSubmit}
                     onReset={handleReset}
                 >
-                    <input
-                        ref={inputRef}
-                        className={`ais-SearchBox-input searchBoxInput`}
+                    <Input.Search
+                        // ref={inputRef}
+                        className={`ais-SearchBox-input searchBoxInput `}
                         autoComplete="on"
                         autoCorrect="on"
                         autoCapitalize="on"

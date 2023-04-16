@@ -8,12 +8,14 @@ export type chatItem = {
 
 export interface analyticsSliceType {
     name: string,
+    benchmarkTimeSeriesData: TimeSeries[],
     timeSeriesData: TimeSeries[],
     chat: []
 }
 
 export const initialState: analyticsSliceType = {
     name: "",
+    benchmarkTimeSeriesData: [],
     timeSeriesData: [],
     chat: []
 }
@@ -27,9 +29,12 @@ const analyticsSlice = createSlice({
         },
         setTimeSeriesData: (state, action) => {
             state.timeSeriesData = action.payload.timeSeriesData
+        },
+        setBenchmarkTimeSeriesData: (state, action) => {
+            state.benchmarkTimeSeriesData = action.payload.benchmarkTimeSeriesData
         }
     }
 })
 
-export const { setAnalyticsDetails, setTimeSeriesData } = analyticsSlice.actions
+export const { setAnalyticsDetails, setTimeSeriesData, setBenchmarkTimeSeriesData } = analyticsSlice.actions
 export default analyticsSlice.reducer

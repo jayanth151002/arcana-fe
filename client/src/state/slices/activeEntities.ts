@@ -9,7 +9,7 @@ export interface activeEntitiesSliceType {
 
 export const initialState: activeEntitiesSliceType = {
     isSliderOpen: false,
-    indices: ["Benchmark"],
+    indices: ["AAPL"],
     chartType: "volume",
     activeSearchString: ""
 }

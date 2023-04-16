@@ -21,7 +21,7 @@ export const generateTimeSeriesData = (stockId: string, startDate: string, days:
     return data;
 };
 
-export const timeSeriesDataOne = generateTimeSeriesData("AAPL", "2021-01-01", 100);
+export const timeSeriesDataOne = generateTimeSeriesData("A", "2021-01-01", 100);
 export const timeSeriesDataTwo = generateTimeSeriesData("MSFT", "2021-01-01", 100);
 export const timeSeriesDataThree = generateTimeSeriesData("GOOG", "2021-01-01", 100);
-export const timeSeriesDataFour = generateTimeSeriesData("Benchmark", "2021-01-01", 100);
+export const timeSeriesDataFour = generateTimeSeriesData("AAPL", "2021-01-01", 100);
