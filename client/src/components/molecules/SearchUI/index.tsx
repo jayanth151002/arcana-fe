@@ -1,8 +1,9 @@
 import React from 'react'
 import algoliasearch from 'algoliasearch/lite';
-import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-hooks-web';
+import { InstantSearch, Hits } from 'react-instantsearch-hooks-web';
 import SearchHits from '../SearchHits';
 import './styles.css'
+import { SearchBox } from '../../atoms/SearchBox';
 
 const searchClient = algoliasearch(
     "AB57CPNYCS",
@@ -14,7 +15,6 @@ const SearchUI = () => {
         <InstantSearch searchClient={searchClient} indexName={"stock-metadata"}>
             <div className="search-container" >
                 <SearchBox />
-                <br />
                 <SearchHits />
             </div>
         </InstantSearch>

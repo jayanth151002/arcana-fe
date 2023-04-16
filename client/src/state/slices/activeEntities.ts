@@ -4,12 +4,14 @@ export interface activeEntitiesSliceType {
     isSliderOpen: boolean,
     indices: string[],
     chartType: string
+    activeSearchString: string,
 }
 
 export const initialState: activeEntitiesSliceType = {
     isSliderOpen: false,
     indices: ["Benchmark"],
-    chartType: "volume"
+    chartType: "volume",
+    activeSearchString: ""
 }
 
 const activeEntitiesSlice = createSlice({
@@ -26,9 +28,12 @@ const activeEntitiesSlice = createSlice({
         },
         setChartType: (state, action) => {
             state.chartType = action.payload.chartType
+        },
+        setActiveSearchString: (state, action) => {
+            state.activeSearchString = action.payload
         }
     }
 })
 
-export const { setIsSliderOpen, setIndices, setChartType } = activeEntitiesSlice.actions
+export const { setIsSliderOpen, setIndices, setChartType, setActiveSearchString } = activeEntitiesSlice.actions
 export default activeEntitiesSlice.reducer
