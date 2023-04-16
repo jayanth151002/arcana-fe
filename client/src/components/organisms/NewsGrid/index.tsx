@@ -32,7 +32,7 @@ const NewsGrid = () => {
             &nbsp; &nbsp; <h4>Autodesk, Inc. is an American multinational software corporation that makes software products and services for the architecture, engineering, construction, manufacturing, media, education, and entertainment industries. Autodesk is headquartered in San Francisco, California, and has offices worldwide.</h4>
 
             <ul>
-                <li>
+                {/* <li>
                     <h2>Autodesk Inc. (ADSK) Q1 2021 Earnings Call Transcript</h2>
                     <img src={"https://media.cnn.com/api/v1/images/stellar/prod/230410115843-01-colorado-river-winter.jpg?c=16x9&q=h_144,w_256,c_fill"} alt={"data.name"} />
                     <h2>CEO :Andrew Anagnost </h2>
@@ -44,7 +44,7 @@ const NewsGrid = () => {
                     <h3>Volume Average : 1453388</h3>
                     <h3>Last dividend paid: 0.89</h3>
                     <hr />
-                </li>
+                </li> */}
             </ul>
         </Row>
     )
