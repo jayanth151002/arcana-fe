@@ -12,20 +12,34 @@ const Search = () => {
     const [options, setOptions] = useState<SelectProps<object>['options']>([]);
     const dispatch = useAppDispatch();
     const activeIndices = useAppSelector(state => state.activeEntities.indices)
+    const timeSeriesData = useAppSelector(state => state.analytics.timeSeriesData)
 
     const handleClick = (index: string) => {
-        if (index !== "Benchmark")
+        console.log(index)
+        if (index !== "Benchmark") {
             dispatch(setIndices({ index: index }))
+        }
     }
 
     const handleSelect = (e: CheckboxChangeEvent) => {
         const id = e.target.value;
-        if (id === "MSFT")
-            dispatch(setTimeSeriesData({ timeSeriesData: timeSeriesDataTwo }))
-        else if (id === "AAPL")
-            dispatch(setTimeSeriesData({ timeSeriesData: timeSeriesDataOne }))
-        else if (id === "GOOG")
-            dispatch(setTimeSeriesData({ timeSeriesData: timeSeriesDataThree }))
+        if (id !== "Benchmark") {
+            if (timeSeriesData?.some(t => t.stock_id === id)) {
+                console.log(id, "exists")
+                console.log(timeSeriesData?.filter(i => i.stock_id !== id))
+                dispatch(setTimeSeriesData({ timeSeriesData: timeSeriesData?.filter(i => i.stock_id !== id) }))
+                // dispatch(setIndices({index:index}))
+            }
+            else {
+                if (id === "MSFT")
+                    dispatch(setTimeSeriesData({ timeSeriesData: timeSeriesData.concat(timeSeriesDataTwo) }))
+                else if (id === "AAPL")
+                    dispatch(setTimeSeriesData({ timeSeriesData: timeSeriesData.concat(timeSeriesDataOne) }))
+                else if (id === "GOOG")
+                    dispatch(setTimeSeriesData({ timeSeriesData: timeSeriesData.concat(timeSeriesDataThree) }))
+                // dispatch(setIndices({index:index}))
+            }
+        }
     }
 
     const handleChange = (value: string) => {
@@ -49,7 +63,7 @@ const Search = () => {
                     <span>
                         <Button>
                             <span style={{ fontWeight: "700" }} onClick={() => handleClick(name)}>
-                                {activeIndices?.includes(name) ? "-" : "+"}
+                                {activeIndices?.includes(name) ? "✅" : "+"}
                             </span>
                         </Button>
                     </span>
@@ -67,8 +81,9 @@ const Search = () => {
     return (
         <>
             <Select
+                size="large"
                 defaultValue="Pick a chart type"
-                style={{ width: 200 }}
+                style={{ width: 200, margin: 10 }}
                 onChange={handleChange}
                 options={[
                     { value: 'close', label: 'Close' },
@@ -82,17 +97,19 @@ const Search = () => {
                 options={options}
                 onSearch={handleSearch}
             >
-                <Input.Search size="large" placeholder="input here" enterButton />
+                <Input.Search size="large" placeholder="Search 🔎" enterButton />
             </AutoComplete>
-            <Radio.Group onChange={() => { ; }} value={1}>
-                <Space direction="vertical">
-                    {activeIndices?.map((index) => {
-                        return (
-                            <Checkbox value={index} onChange={handleSelect}>{index}</Checkbox>
-                        )
-                    })}
-                </Space>
-            </Radio.Group>
+            <div style={{ overflowY: "scroll" }}>
+                <Radio.Group onChange={() => { ; }} value={1}>
+                    <Space direction="vertical">
+                        {activeIndices?.map((index) => {
+                            return (index === "Benchmark" ? <Checkbox value={index} onChange={handleSelect} checked={true}>{index}</Checkbox>
+                                :
+                                <Checkbox value={index} onChange={handleSelect}>{index}</Checkbox>)
+                        })}
+                    </Space>
+                </Radio.Group>
+            </div>
         </>
     )
 }

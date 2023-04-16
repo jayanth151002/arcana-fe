@@ -20,10 +20,9 @@ const activeEntitiesSlice = createSlice({
             state.isSliderOpen = action.payload.isSliderOpen
         },
         setIndices: (state, action) => {
-            if (state.indices.includes(action.payload.index)) {
-                state.indices = state.indices.filter(index => index !== action.payload.index)
-            } else
+            if (!state.indices.includes(action.payload.index)) {
                 state.indices.push(action.payload.index)
+            }
         },
         setChartType: (state, action) => {
             state.chartType = action.payload.chartType

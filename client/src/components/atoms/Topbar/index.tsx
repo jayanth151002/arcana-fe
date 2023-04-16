@@ -10,10 +10,10 @@ const Topbar = () => {
                     <h1>Copilot for Investors</h1>
                 </Col>
                 <Col flex="100px">
-                    <Link to="/">Charts</Link>
+                    <Link to="/" style={{ color: "white" }}>Charts</Link>
                 </Col>
                 <Col flex="100px">
-                    <Link to="/news">News</Link>
+                    <Link to="/news" style={{ color: "white" }}>News</Link>
                 </Col>
             </Row>
         </>
