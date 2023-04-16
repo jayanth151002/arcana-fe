@@ -1,6 +1,7 @@
 import React from 'react'
 import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-hooks-web';
+import SearchHits from '../SearchHits';
 import './styles.css'
 
 const searchClient = algoliasearch(
@@ -8,25 +9,13 @@ const searchClient = algoliasearch(
     "b9479b4210d1a59ca9be2ad35ad194b3"
 );
 
-function Hit({ hit }: any) {
-    console.log({ hit })
-    return (
-        <article>
-            {/* <img src={hit.image} alt={hit.name} /> */}
-            {/* <p>{hit.categories[0]}</p> */}
-            <p>{hit.name}</p>
-            {/* <p>${hit.price}</p> */}
-        </article>
-    );
-}
-
 const SearchUI = () => {
     return (
         <InstantSearch searchClient={searchClient} indexName={"stock-metadata"}>
-            <div>
+            <div className="search-container" >
                 <SearchBox />
                 <br />
-                <Hits hitComponent={Hit} />
+                <SearchHits />
             </div>
         </InstantSearch>
     )

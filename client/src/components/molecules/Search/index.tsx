@@ -15,7 +15,6 @@ const Search = () => {
     const timeSeriesData = useAppSelector(state => state.analytics.timeSeriesData)
 
     const handleClick = (index: string) => {
-        console.log(index)
         if (index !== "Benchmark") {
             dispatch(setIndices({ index: index }))
         }
