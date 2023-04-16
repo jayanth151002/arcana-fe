@@ -1,14 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { TimeSeries } from '../../models/timeSeries'
 
+export type chatItem = {
+    question: string,
+    answer: string
+}
+
 export interface analyticsSliceType {
     name: string,
-    timeSeriesData: TimeSeries[]
+    timeSeriesData: TimeSeries[],
+    chat: []
 }
 
 export const initialState: analyticsSliceType = {
     name: "",
-    timeSeriesData: []
+    timeSeriesData: [],
+    chat: []
 }
 
 const analyticsSlice = createSlice({

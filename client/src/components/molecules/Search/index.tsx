@@ -88,7 +88,7 @@ const Search = () => {
                 options={[
                     { value: 'volatility', label: 'Volatility' },
                     { value: 'close', label: 'Close' },
-                    { value: 'volume', label: 'Volume' }
+                    { value: 'volume', label: 'Volume' },
                 ]}
             />
             <AutoComplete
