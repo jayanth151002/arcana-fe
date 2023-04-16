@@ -25,13 +25,16 @@ interface CumulativeData {
 }
 
 const Metrics = () => {
-    const activeStockSymbol = useSelector((state: RootState) => state.activeEntities.activeCompanySymbol)
+    let activeStockSymbol = useSelector((state: RootState) => state.activeEntities.activeCompanySymbol)
     useEffect(() => { }, [activeStockSymbol])
     const { data } = useQuery({
         queryKey: ["stockData"],
-        queryFn: async () => await axios.get(
-            `https://api.arcana.coursepanel.in/stocks/complete/${activeStockSymbol}`
-        ),
+        queryFn: async () => {
+            if (!activeStockSymbol) { activeStockSymbol = 'AAPL' }
+            await axios.get(
+                `https://api.arcana.coursepanel.in/stocks/complete/${activeStockSymbol}`
+            )
+        },
     }) as { isLoading: boolean, data: CumulativeData }
     return (
         <>

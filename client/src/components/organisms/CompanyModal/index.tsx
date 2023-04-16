@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { useQuery } from '@tanstack/react-query'
 
-interface StockData {
+export interface StockData {
     name: string,
     symbol: string,
     sector: string,
@@ -39,6 +39,7 @@ const CompanyModal = () => {
         ),
     }) as { isLoading: boolean, data: StockData }
     if (data) dispatch(setDataDumpComp(data))
+    console.log(data);
     return (
         <Modal
             title={`Company Details`}

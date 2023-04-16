@@ -1,11 +1,10 @@
 import "./styles.css"
 import { Col, Row, FloatButton, Drawer } from 'antd';
-import NewsContent from '../../molecules/NewsContent';
-import { WechatOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from "../../../state/hooks";
 import { setIsSliderOpen } from "../../../state/slices/activeEntities";
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
+import { StockData } from "../CompanyModal";
 
 const NewsGrid = () => {
 
@@ -21,30 +20,31 @@ const NewsGrid = () => {
             `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${activeStockSymbol}AAPL&apikey=SLLKCQL1JYMRS300`
         ),
     }) as { isLoading: boolean, data: any }
-    console.log(data)
+    const { data: stockData } = useQuery({
+        queryKey: ["stockData"],
+        queryFn: async () => await axios.get(
+            `https://api.arcana.coursepanel.in/stocks/${activeStockSymbol}`
+        ),
+    }) as { isLoading: boolean, data: StockData }
+    console.log(data, stockData);
     return (
         <Row className="news-content">
-
-            {/* <Col span={24}>
-                <NewsContent />
-            </Col> */}
-            <h1><a href="autodesk.com">Autodesk Inc. | ADSK</a></h1>
-            &nbsp; &nbsp; <h4>Autodesk, Inc. is an American multinational software corporation that makes software products and services for the architecture, engineering, construction, manufacturing, media, education, and entertainment industries. Autodesk is headquartered in San Francisco, California, and has offices worldwide.</h4>
-
             <ul>
-                {/* <li>
-                    <h2>Autodesk Inc. (ADSK) Q1 2021 Earnings Call Transcript</h2>
-                    <img src={"https://media.cnn.com/api/v1/images/stellar/prod/230410115843-01-colorado-river-winter.jpg?c=16x9&q=h_144,w_256,c_fill"} alt={"data.name"} />
-                    <h2>CEO :Andrew Anagnost </h2>
-                    <h2>Sector : Creativity Tools </h2>
-                    <h2>Industry : Software </h2>
+                <li>
+                    <h1><a href={data.website}>{data.name} ({data.symbol})</a></h1>
+                    <img src={data.image} alt={data.name} />
+                    <h2>CEO : {data.ceo} </h2>
+                    <h2>Sector : {data.sector} </h2>
+                    <h2>Industry : {data.industry} </h2>
                     <hr />
-                    <h3>Range :  163.2-235.01</h3>
-                    <h3>Beta : 1.512101 </h3>
-                    <h3>Volume Average : 1453388</h3>
-                    <h3>Last dividend paid: 0.89</h3>
+                    <h3>Range : {data.range} </h3>
+                    <h3>Beta : {data.beta} </h3>
+                    <h3>Volume Average : {data.volAvg} </h3>
+                    <h3>Last dividend paid: {data.lastDiv}</h3>
                     <hr />
-                </li> */}
+                    <h3>Website : {data.website} </h3>
+                    <p>{data.description}</p>
+                </li>
             </ul>
         </Row>
     )
