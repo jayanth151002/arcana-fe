@@ -5,9 +5,14 @@ import { useAppDispatch, useAppSelector } from '../../../state/hooks';
 import { setChartType, setIndices } from '../../../state/slices/activeEntities';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { setTimeSeriesData } from '../../../state/slices/analytics';
-import { timeSeriesDataOne, timeSeriesDataThree, timeSeriesDataTwo } from '../../../mockdata/timeSeries';
 import { TimeSeries } from '../../../models/timeSeries';
+import algoliasearch from 'algoliasearch/lite';
+import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-hooks-web';
 
+const searchClient = algoliasearch(
+    "AB57CPNYCS",
+    "b9479b4210d1a59ca9be2ad35ad194b3"
+);
 
 const Search = () => {
     const [options, setOptions] = useState<SelectProps<object>['options']>([]);
@@ -93,25 +98,28 @@ const Search = () => {
 
     return (
         <>Pick a chart type
-            <Select
-                size="large"
-                defaultValue="volatility"
-                style={{ width: 200, margin: 10 }}
-                onChange={handleChange}
-                options={[
-                    { value: 'volatility', label: 'Volatility' },
-                    { value: 'close', label: 'Close' },
-                    { value: 'volume', label: 'Volume' },
-                ]}
-            />
-            <AutoComplete
-                dropdownMatchSelectWidth={252}
-                style={{ width: "90%", margin: 10 }}
-                options={options}
-                onSearch={handleSearch}
-            >
-                <Input.Search size="large" placeholder="Search 🔎" enterButton />
-            </AutoComplete>
+            <InstantSearch searchClient={searchClient} indexName={"stock-metadata"}>
+                <Select
+
+                    size="large"
+                    defaultValue="volatility"
+                    style={{ width: 200, margin: 10 }}
+                    onChange={handleChange}
+                    options={[
+                        { value: 'volatility', label: 'Volatility' },
+                        { value: 'close', label: 'Close' },
+                        { value: 'volume', label: 'Volume' },
+                    ]}
+                />
+                <AutoComplete
+                    dropdownMatchSelectWidth={252}
+                    style={{ width: "90%", margin: 10 }}
+                    options={options}
+                    onSearch={handleSearch}
+                >
+                    <Input.Search size="large" placeholder="Search 🔎" enterButton />
+                </AutoComplete>
+            </InstantSearch>
             <div style={{ overflowY: "scroll" }}>
                 <Radio.Group onChange={() => { ; }} value={1}>
                     <Space direction="vertical">
